@@ -7,9 +7,6 @@ import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
 import soko.ekibun.openinapp.wechat.WechatAccessibilityService
-import android.content.Intent
-import android.net.Uri
-
 
 object PreferencesUtil{
     fun isStorageEnable(context: Context): Boolean {
