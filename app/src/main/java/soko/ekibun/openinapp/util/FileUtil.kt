@@ -14,7 +14,7 @@ object FileUtil{
     fun saveBitmapToCache(context: Context, bmp: Bitmap, fileName: String): File? {
         var file: File? = null
         try {
-            val fileFolder = getDiskCacheDir(context, "ScreenShots")
+            val fileFolder = getDiskCacheDir(context, "QrCode"+ File.separator + "ScreenShots")
             if (fileFolder.exists())
                 for (f in fileFolder.listFiles()) {
                     deleteFile(context, f)
