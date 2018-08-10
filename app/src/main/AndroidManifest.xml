@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="soko.ekibun.openinapp">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+            android:allowBackup="false"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning">
+        <service android:name="soko.ekibun.openinapp.wechat.WechatAccessibilityService"
+                 android:icon="@drawable/ic_wechat"
+                 android:label="@string/service_wechat"
+                 android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.accessibilityservice"
+                    android:resource="@xml/wechat_accessibility"/>
+        </service>
+
+        <activity
+                android:name=".ShareActivity"
+                android:icon="@drawable/ic_wechat"
+                android:label="@string/open_wechat"
+                android:autoRemoveFromRecents="true"
+                android:clearTaskOnLaunch="true"
+                android:excludeFromRecents="true"
+                android:exported="true"
+                android:finishOnTaskLaunch="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="soko.ekibun.openinapp.wechat.OpenWechatActivity"
+                  android:icon="@drawable/ic_wechat"
+                  android:label="@string/open_wechat"
+                  android:finishOnTaskLaunch="true"
+                  android:clearTaskOnLaunch="true"
+                  android:autoRemoveFromRecents="true"
+                  android:excludeFromRecents="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                        android:host="wx.tenpay.com"
+                        android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                        android:host="weixin.qq.com"
+                        android:pathPrefix="/r/"
+                        android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                        android:host="mp.weixin.qq.com"
+                        android:pathPrefix="/a/"
+                        android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                        android:host="weixin.qq.com"
+                        android:pathPrefix="/q/"
+                        android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="weixin" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="wxp" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="wxhb" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
