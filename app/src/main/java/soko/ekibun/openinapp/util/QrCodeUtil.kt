@@ -1,19 +1,16 @@
 package soko.ekibun.openinapp.util
 
 import android.graphics.Bitmap
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
-import com.google.zxing.common.BitMatrix
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import java.util.*
 
 
 object QrCodeUtil{
-    private val BLACK = -0x1000000
-    private val WHITE = -0x1
+    private const val BLACK = -0x1000000
+    private const val WHITE = -0x1
     @Throws(WriterException::class)
     fun createQRCode(str: String, widthAndHeight: Int): Bitmap {
         val hints = Hashtable<EncodeHintType, String>()

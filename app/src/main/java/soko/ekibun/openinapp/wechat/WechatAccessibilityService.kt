@@ -17,8 +17,8 @@ import android.text.TextUtils
 class WechatAccessibilityService: AccessibilityService() {
 
     private var file: File? = null
-    var oldTime: Long = 0
-    var process = 0
+    private var oldTime: Long = 0
+    private var process = 0
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.hasExtra(PROCESSWECHAT)) {
             try {
@@ -68,14 +68,14 @@ class WechatAccessibilityService: AccessibilityService() {
                 }
             }
             4->{
-                if ("com.tencent.mm.plugin.scanner.ui.BaseScanUI" != className) return
-                process ++
-            }
-            5->{
-                file?.let{
-                    FileUtil.deleteFile(this, it)
-                }
-                file = null
+                process = 0
+                Thread{
+                    Thread.sleep(5000)
+                    file?.let{
+                        FileUtil.deleteFile(this, it)
+                    }
+                    file = null
+                }.start()
             }
         }
     }

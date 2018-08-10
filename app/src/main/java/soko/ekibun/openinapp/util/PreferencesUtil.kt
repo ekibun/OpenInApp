@@ -12,11 +12,6 @@ import android.net.Uri
 
 
 object PreferencesUtil{
-    fun openDefaultSettings(context: Context) {
-        val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + context.packageName))
-        context.startActivity(intent)
-    }
-
     fun isStorageEnable(context: Context): Boolean {
         return !(Build.VERSION.SDK_INT >= 23 && context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
     }

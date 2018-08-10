@@ -1,9 +1,6 @@
 package soko.ekibun.openinapp.util
 
-import java.io.File.separator
-import android.os.Environment.MEDIA_MOUNTED
 import android.provider.MediaStore
-import android.text.TextUtils
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
@@ -11,9 +8,6 @@ import android.os.Environment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import kotlin.experimental.and
 
 
 object FileUtil{

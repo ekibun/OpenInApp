@@ -2,6 +2,7 @@
     <string name="app_name">OpenInApp</string>
 
     <string name="open_wechat">用微信打开</string>
+    <string name="open_alipay">用支付宝打开</string>
 
     <string name="service_wechat">用微信打开服务</string>
     <string name="wechat_accessibility_desc">用于微信自动点击图片扫码以实现自动打开链接</string>
