@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Environment
+import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -14,11 +15,8 @@ object FileUtil{
     fun saveBitmapToCache(context: Context, bmp: Bitmap, fileName: String): File? {
         var file: File? = null
         try {
-            val fileFolder = getDiskCacheDir(context, "QrCode"+ File.separator + "ScreenShots")
-            if (fileFolder.exists())
-                for (f in fileFolder.listFiles()) {
-                    deleteFile(context, f)
-                }
+            val fileFolder = getDiskCacheDir(context, "Screenshots")
+            deleteFile(context)
             if (!fileFolder.exists())
                 fileFolder.mkdirs()
 
@@ -42,8 +40,15 @@ object FileUtil{
         return file
     }
 
-    fun deleteFile(context: Context, file: File) {
-        file.delete()
+    fun deleteFile(context: Context) {
+        val cursor = context.contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, "TITLE = 'QRCODE'", null, null)
+        while(cursor?.moveToNext() == true) {
+            val path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA))
+            Log.v("file", path)
+            val file = File(path)
+            if (!file.exists()) file.delete()
+        }
+        cursor?.close()
         context.contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "TITLE = 'QRCODE'", null)
     }
 

@@ -9,14 +9,12 @@ import android.content.Context
 import android.graphics.Rect
 import soko.ekibun.openinapp.util.FileUtil
 import soko.ekibun.openinapp.util.QrCodeUtil
-import java.io.File
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
 import android.text.TextUtils
 
 class WechatAccessibilityService: AccessibilityService() {
 
-    private var file: File? = null
     private var oldTime: Long = 0
     private var process = 0
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -25,7 +23,7 @@ class WechatAccessibilityService: AccessibilityService() {
                 val url = intent.getStringExtra("processWechat")
                 val qrcode = QrCodeUtil.createQRCode(url, 500)
                 oldTime = System.currentTimeMillis()
-                file = FileUtil.saveBitmapToCache(this, qrcode, oldTime.toString())
+                FileUtil.saveBitmapToCache(this, qrcode, oldTime.toString())
                 //FileUtils.requestScanFile(this, file.getPath());
                 process = if (openWechatScanUI(this)) 1 else 0
             } catch (e: Exception) {
@@ -71,10 +69,7 @@ class WechatAccessibilityService: AccessibilityService() {
                 process = 0
                 Thread{
                     Thread.sleep(5000)
-                    file?.let{
-                        FileUtil.deleteFile(this, it)
-                    }
-                    file = null
+                    FileUtil.deleteFile(this)
                 }.start()
             }
         }
