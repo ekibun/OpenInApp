@@ -68,8 +68,10 @@ class WechatAccessibilityService: AccessibilityService() {
                 }
             }
             4->{
-                process = 0
                 if ("com.tencent.mm.plugin.scanner.ui.BaseScanUI" != className) return
+                process ++
+            }
+            5->{
                 file?.let{
                     FileUtil.deleteFile(this, it)
                 }
