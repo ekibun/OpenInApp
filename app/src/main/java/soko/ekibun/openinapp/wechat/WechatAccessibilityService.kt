@@ -44,8 +44,9 @@ class WechatAccessibilityService: AccessibilityService() {
         val className = event.className.toString()
         when(process){
             1 ->{
-                if ("com.tencent.mm.plugin.scanner.ui.BaseScanUI" != className) return
                 val node = findNodeByClass("android.widget.ImageButton", event.source)?:return
+                Log.v("class", className)
+                //if ("com.tencent.mm.plugin.scanner.ui.BaseScanUI" != className) return
                 node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                 process++
                 oldTime = System.currentTimeMillis()
