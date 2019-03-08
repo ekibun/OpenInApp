@@ -19,9 +19,9 @@
 - HTTPS://QR.ALIPAY.COM 
 ## 开始使用
 在浏览器中点击分享，选择用微信/支付宝打开，并赋予如下权限
-- 无障碍 (模拟微信点击）
+- 无障碍（模拟微信点击）
 - 存储权限（保存二维码）
-- 自启动（MIUI等） 
+- 自启动（MIUI等）
 ## 感谢以下的开源项目及作者
 - [Android Open Source Project](http://source.android.com/)
 - [zxing](https://github.com/zxing/zxing)
