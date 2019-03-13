@@ -4,7 +4,8 @@
 [![Github download]( https://img.shields.io/github/downloads/ekibun/OpenInApp/total.svg)](https://github.com/ekibun/OpenInApp/releases)
 ## 主要功能
 ### 用应用内浏览器打开网页
-在系统分享及默认打开中加入选项用微信/支付宝内置浏览器打开
+- 在系统分享及默认打开中加入选项用微信/支付宝内置浏览器打开
+- [new]在分享及打开列表增加选项以重定向为系统打开列表
 ### 支持的schema
 #### 微信
 - https://wx.tenpay.com
