@@ -20,7 +20,7 @@ class WechatAccessibilityService: AccessibilityService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.hasExtra(PROCESSWECHAT)) {
             try {
-                val url = intent.getStringExtra("processWechat")
+                val url = intent.getStringExtra(PROCESSWECHAT)!!
                 val qrcode = QrCodeUtil.createQRCode(url, 500)
                 oldTime = System.currentTimeMillis()
                 FileUtil.saveBitmapToCache(this, qrcode, oldTime.toString())
@@ -38,41 +38,35 @@ class WechatAccessibilityService: AccessibilityService() {
         //TODO
     }
 
+    var currentActivity: String = ""
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         if(System.currentTimeMillis() - oldTime > 10000) process = 0
         if(process <= 0) return
-        val className = event.className.toString()
-        when(process){
-            1 ->{
-                val node = findNodeByClass("android.widget.ImageButton", event.source)?:return
-                Log.v("class", className)
-                //if ("com.tencent.mm.plugin.scanner.ui.BaseScanUI" != className) return
+        if(event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+            currentActivity = event.className.toString()
+        when(currentActivity){
+            "com.tencent.mm.plugin.scanner.ui.BaseScanUI" ->{
+                val node = event.source?.findAccessibilityNodeInfosByText("扫二维码 / 条码 / 小程序码")?.getOrNull(0)?.parent?.let {
+                    it.getChild(it.childCount - 1) }?: return
+                Log.v("node", node.toString())
                 node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
-                process++
                 oldTime = System.currentTimeMillis()
             }
-            2->{
-                var node = event.source?.findAccessibilityNodeInfosByText("从相册选取二维码")?.getOrNull(0)?: return
-                while(!node.isClickable) node = node.parent
+            "com.tencent.mm.plugin.gallery.ui.GalleryEntryUI"-> {
+                val node = event.source?.findAccessibilityNodeInfosByText("拍摄照片")?.getOrNull(0)?.parent?.parent?.getChild(2)
+                        ?: return
+                Log.v("node", node.toString())
                 node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
-                process++
+                process = 2 // DONE
                 oldTime = System.currentTimeMillis()
             }
-            3->{
-                if ("com.tencent.mm.plugin.gallery.ui.AlbumPreviewUI" != className) return
-                findNodeByClass("android.widget.GridView", event.source)?.getChild(1)?.let {
-                    it.performAction(AccessibilityNodeInfo.ACTION_CLICK)
-                    process++
-                    oldTime = System.currentTimeMillis()
-                }
-            }
-            4->{
-                process = 0
-                Thread{
-                    Thread.sleep(5000)
-                    FileUtil.deleteFile(this)
-                }.start()
-            }
+        }
+        if(process == 2){
+            process = 0
+            Thread{
+                Thread.sleep(5000)
+                FileUtil.deleteFile(this)
+            }.start()
         }
     }
 

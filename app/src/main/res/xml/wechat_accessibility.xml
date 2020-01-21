@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-                       android:accessibilityEventTypes="typeAllMask"
+                       android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged"
                        android:accessibilityFeedbackType="feedbackGeneric"
                        android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows"
                        android:canRetrieveWindowContent="true"
                        android:notificationTimeout="100"
                        android:packageNames="com.tencent.mm"
-                       android:settingsActivity="com.inklin.openinwechat.PreferencesActivity"
                        android:description = "@string/wechat_accessibility_desc"/>

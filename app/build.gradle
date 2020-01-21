@@ -6,12 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 
 
 static def gitVersionCode() {
-    def cmd = 'git rev-list HEAD --first-parent --count'
+    def cmd = 'bash -c "git rev-list HEAD --first-parent --count"'
     cmd.execute().text.trim().toInteger()
 }
 
 static def gitVersionTag() {
-    def cmd = 'git describe --tags'
+    def cmd = 'bash -c "git describe --tags"'
     def version = cmd.execute().text.trim()
 
     def pattern = "-(\\d+)-g"
@@ -27,15 +27,15 @@ static def gitVersionTag() {
 }
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "soko.ekibun.openinapp"
         minSdkVersion 22
-        targetSdkVersion 23
+        targetSdkVersion 29
         versionCode gitVersionCode()
         versionName gitVersionTag()
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -46,12 +46,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.zxing:core:3.3.0'
 }
