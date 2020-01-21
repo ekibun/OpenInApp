@@ -53,7 +53,7 @@ class WechatAccessibilityService: AccessibilityService() {
                 oldTime = System.currentTimeMillis()
             }
             "com.tencent.mm.plugin.gallery.ui.GalleryEntryUI"-> {
-                val node = event.source?.findAccessibilityNodeInfosByText("拍摄照片")?.getOrNull(0)?.parent?.parent?.getChild(2)
+                val node = event.source?.findAccessibilityNodeInfosByText("拍摄照片")?.getOrNull(0)?.parent?.parent?.getChild(1)
                         ?: return
                 Log.v("node", node.toString())
                 node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
